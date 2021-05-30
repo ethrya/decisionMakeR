@@ -13,6 +13,11 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
 
+list.files("../R", pattern = ".R", full.names = T) %>%
+  purrr::walk(source)
+
+thematic::thematic_shiny()
+
 nSim <- 1000
 
 # Define server logic required to draw a histogram
@@ -63,7 +68,8 @@ shinyServer(function(input, output) {
     output$combinedPlot <- renderPlot({
       tibble(x = pdf()) %>%
         ggplot(aes(x = x)) +
-        geom_density()
-    })
+        geom_density(size = 1) +
+        theme(base_size = 12)
+      })
 
 })
