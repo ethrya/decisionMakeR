@@ -24,52 +24,56 @@ nSim <- 1000
 shinyServer(function(input, output) {
 
     output$distPlot <- renderPlot({
-      params <- strsplit(input$params1, ",") %>%
-        magrittr::extract2(1) %>%
-        str_extract("[\\.0-9]+") %>%
-        as.numeric()
+      params <- get_params(input$params1)
         
-        ggdistribution(dnorm, seq(-3, 3, 0.1),
-                       mean = params[1],
-                       sd = params[2])
-
+      plot_dist(params)
     })
     
     output$distPlot2 <- renderPlot({
+      params <- get_params(input$params2)
       
-      params <- strsplit(input$params2, ",") %>%
-        magrittr::extract2(1) %>%
-        str_extract("[\\.0-9]+") %>%
-        as.numeric()
-      
-      ggdistribution(dnorm, seq(-3, 3, 0.1),
-                     mean = params[1],
-                     sd = params[2])
-      
+     plot_dist(params)
     })
     
+    output$distPlot3 <- renderPlot({
+      params <- get_params(input$params3)
+      
+      plot_dist(params)
+    })
+    
+    output$distPlot4 <- renderPlot({
+      params <- get_params(input$params4)
+      
+      plot_dist(params)
+    })
+    output$distPlot5 <- renderPlot({
+      params <- get_params(input$params5)
+      
+      plot_dist(params)
+    })
+  
     
     pdf <- reactive({
-      params1 <- strsplit(input$params1, ",") %>%
-        magrittr::extract2(1) %>%
-        str_extract("[\\.0-9]+") %>%
-      as.numeric()
-      params2 <- strsplit(input$params2, ",") %>%
-        magrittr::extract2(1) %>%
-        str_extract("[\\.0-9]+") %>%
-        as.numeric()
-      
+      params1 <- get_params(input$params1)
+      params2 <- get_params(input$params2)
+      params3 <- get_params(input$params3)
+      params4 <- get_params(input$params4)
+      params5 <- get_params(input$params5)
+
       dist1 <- rnorm(nSim, mean = params1[1], sd = params1[2])
       dist2 <- rnorm(nSim, mean = params2[1], sd = params2[2])
+      dist3 <- rnorm(nSim, mean = params3[1], sd = params3[2])
+      dist4 <- rnorm(nSim, mean = params4[1], sd = params4[2])
+      dist5 <- rnorm(nSim, mean = params5[1], sd = params5[2])
       
-      combined <- input$w1*dist1 + input$w2*dist2
+      combined <- input$w1*dist1 + input$w2*dist2 +
+        input$w3*dist3 + input$w4*dist4 +input$w5*dist5
     })
     
     output$combinedPlot <- renderPlot({
       tibble(x = pdf()) %>%
         ggplot(aes(x = x)) +
-        geom_density(size = 1) +
-        theme(base_size = 12)
+        geom_density(size = 1)
       })
 
 })
