@@ -18,36 +18,75 @@ shinyUI(fluidPage(
     
     # Sidebar with a slider input for number of bins
     fluidRow(
-        column(2,
+        column(1,
                numericInput("w1",
                          "Weight",
                          value = "0.5")
         ),
-        column(2,
+        column(1,
                textInput("params1",
-                         "Mean, Sd",
-                         value = "1, 0.5")
+                         "Mean, Sd,df",
+                         value = "1, 0.5, 100")
         ),
-        column(2,
+        column(1,
                numericInput("w2",
                             "Weight",
                             value = "0.5")
         ),
-        column(2,
+        column(1,
                textInput("params2",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(1,
+               numericInput("w3",
+                            "Weight",
+                            value = "0.5")
+        ),
+        column(1,
+               textInput("params3",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(1,
+               numericInput("w4",
+                            "Weight",
+                            value = "0.5")
+        ),
+        column(1,
+               textInput("params4",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(1,
+               numericInput("w5",
+                            "Weight",
+                            value = "0.5")
+        ),
+        column(1,
+               textInput("params5",
                          "Mean, Sd",
-                         value = "1, 0.5")
+                         value = "1, 0.5, 100")
         )
         ),
     fluidRow(
         # Show a plot of the generated distribution
-        column(4,
+        column(2,
                plotOutput("distPlot")
         ),
-        column(4,
+        column(2,
                plotOutput("distPlot2")
         ),
-        column(4,
+        column(2,
+               plotOutput("distPlot3")
+        ),
+        column(2,
+               plotOutput("distPlot4")
+        ),
+        column(2,
+               plotOutput("distPlot5")
+        ),
+        column(2,
                plotOutput("combinedPlot")
         )
     )

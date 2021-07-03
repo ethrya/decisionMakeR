@@ -18,7 +18,7 @@ list.files("../R", pattern = ".R", full.names = T) %>%
 
 thematic::thematic_shiny()
 
-nSim <- 1000
+nSim <- 10000
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -60,11 +60,11 @@ shinyServer(function(input, output) {
       params4 <- get_params(input$params4)
       params5 <- get_params(input$params5)
 
-      dist1 <- rnorm(nSim, mean = params1[1], sd = params1[2])
-      dist2 <- rnorm(nSim, mean = params2[1], sd = params2[2])
-      dist3 <- rnorm(nSim, mean = params3[1], sd = params3[2])
-      dist4 <- rnorm(nSim, mean = params4[1], sd = params4[2])
-      dist5 <- rnorm(nSim, mean = params5[1], sd = params5[2])
+      dist1 <- (rt(nSim, params1[3])+params1[1])*params1[2]
+      dist2 <- (rt(nSim, params2[3])+params2[1])*params2[2]
+      dist3 <- (rt(nSim, params3[3])+params3[1])*params3[2]
+      dist4 <- (rt(nSim, params4[3])+params4[1])*params4[2]
+      dist5 <- (rt(nSim, params5[3])+params5[1])*params5[2]
       
       combined <- input$w1*dist1 + input$w2*dist2 +
         input$w3*dist3 + input$w4*dist4 +input$w5*dist5
