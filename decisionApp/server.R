@@ -13,12 +13,26 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
 
-list.files("../R", pattern = ".R", full.names = T) %>%
-  purrr::walk(source)
+# list.files("../R", pattern = ".R", full.names = T) %>%
+#   purrr::walk(source)
 
 thematic::thematic_shiny()
 
 nSim <- 10000
+
+plot_dist <- function(params){
+  tibble(x = seq(-5, 5, 0.1),
+         pdf = (dt(x - params[1], params[3]))*params[2]) %>%
+    ggplot(aes(x = x, y = pdf)) +
+    geom_line(size = 1)
+}
+
+get_params <- function(params){
+  strsplit(params, ",") %>%
+    magrittr::extract2(1) %>%
+    str_extract("[\\-\\.0-9]+") %>%
+    as.numeric()
+}
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
