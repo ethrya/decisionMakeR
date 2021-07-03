@@ -18,53 +18,55 @@ shinyUI(fluidPage(
     
     # Sidebar with a slider input for number of bins
     fluidRow(
-        column(1,
+        column(2,
                numericInput("w1",
-                         "Weight",
-                         value = "0.5")
+                            "Weight",
+                            value = "0.5")
         ),
-        column(1,
-               textInput("params1",
-                         "Mean, Sd,df",
-                         value = "1, 0.5, 100")
-        ),
-        column(1,
+        column(2,
                numericInput("w2",
                             "Weight",
                             value = "0.5")
         ),
-        column(1,
-               textInput("params2",
-                         "Mean, Sd, df",
-                         value = "1, 0.5, 100")
-        ),
-        column(1,
+        column(2,
                numericInput("w3",
                             "Weight",
                             value = "0.5")
         ),
-        column(1,
-               textInput("params3",
-                         "Mean, Sd, df",
-                         value = "1, 0.5, 100")
-        ),
-        column(1,
+        column(2,
                numericInput("w4",
                             "Weight",
                             value = "0.5")
         ),
-        column(1,
-               textInput("params4",
-                         "Mean, Sd, df",
-                         value = "1, 0.5, 100")
-        ),
-        column(1,
+        column(2,
                numericInput("w5",
                             "Weight",
                             value = "0.5")
+        )
+    ),
+    fluidRow(
+        column(2,
+               textInput("params11",
+                         "Mean, Sd,df",
+                         value = "1, 0.5, 100")
         ),
-        column(1,
-               textInput("params5",
+        column(2,
+               textInput("params12",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params13",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params14",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params15",
                          "Mean, Sd",
                          value = "1, 0.5, 100")
         )
@@ -72,22 +74,70 @@ shinyUI(fluidPage(
     fluidRow(
         # Show a plot of the generated distribution
         column(2,
-               plotOutput("distPlot")
+               plotOutput("distPlot11")
         ),
         column(2,
-               plotOutput("distPlot2")
+               plotOutput("distPlot12")
         ),
         column(2,
-               plotOutput("distPlot3")
+               plotOutput("distPlot13")
         ),
         column(2,
-               plotOutput("distPlot4")
+               plotOutput("distPlot14")
         ),
         column(2,
-               plotOutput("distPlot5")
+               plotOutput("distPlot15")
         ),
         column(2,
-               plotOutput("combinedPlot")
+               plotOutput("combinedPlot1")
+        )
+    ),
+    fluidRow(
+        column(2,
+               textInput("params21",
+                         "Mean, Sd,df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params22",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params23",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params24",
+                         "Mean, Sd, df",
+                         value = "1, 0.5, 100")
+        ),
+        column(2,
+               textInput("params25",
+                         "Mean, Sd",
+                         value = "1, 0.5, 100")
+        )
+    ),
+    fluidRow(
+        # Show a plot of the generated distribution
+        column(2,
+               plotOutput("distPlot21")
+        ),
+        column(2,
+               plotOutput("distPlot22")
+        ),
+        column(2,
+               plotOutput("distPlot23")
+        ),
+        column(2,
+               plotOutput("distPlot24")
+        ),
+        column(2,
+               plotOutput("distPlot25")
+        ),
+        column(2,
+               plotOutput("combinedPlot2")
         )
     )
 )
