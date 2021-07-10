@@ -18,8 +18,10 @@ library(plotly)
 
 thematic::thematic_shiny()
 
+# Number of monte carlo simulations
 nSim <- 10000
 
+# Plot the output distribution given a 3d vector of parameters
 plot_dist <- function(params){
   tibble(x = seq(-5, 5, 0.1),
          pdf = (dt(x - params[1], params[3]))*params[2]) %>%
@@ -27,6 +29,8 @@ plot_dist <- function(params){
     geom_line(size = 1)
 }
 
+# Take a comma separated string of parameters and
+  # create a 3d vector of parameters
 get_params <- function(params){
   strsplit(params, ",") %>%
     magrittr::extract2(1) %>%
@@ -37,6 +41,8 @@ get_params <- function(params){
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   
+  ### OPTION 1 #####
+   # Create plots for each outcome distribution
   output$distPlot11 <- renderPlot({
     params <- get_params(input$params11)
     
@@ -67,6 +73,7 @@ shinyServer(function(input, output) {
   })
   
   
+  # Create the combined posterior distibution for outcome 1
   pdf1 <- reactive({
     params11 <- get_params(input$params11)
     params12 <- get_params(input$params12)
@@ -84,6 +91,7 @@ shinyServer(function(input, output) {
       input$w3*dist13 + input$w4*dist14 +input$w5*dist15
   })
   
+  # CReate a plot associated with the Outcome 1 posterior
   output$combinedPlot1 <- renderPlot({
     tibble(x = pdf1()) %>%
       ggplot(aes(x = x)) +
@@ -91,8 +99,9 @@ shinyServer(function(input, output) {
   })
   
   
-  #### SIMULATIONS FOR OPTION 2 ######
+  #### OPTION 2 ######
   
+  # Input variable pdfs for option 2
   output$distPlot21 <- renderPlot({
     params <- get_params(input$params21)
     
@@ -140,6 +149,7 @@ shinyServer(function(input, output) {
       input$w3*dist3 + input$w4*dist4 +input$w5*dist5
   })
   
+  # Posterior PDF for option 2
   output$combinedPlot2 <- renderPlot({
     tibble(x = pdf2()) %>%
       ggplot(aes(x = x)) +
