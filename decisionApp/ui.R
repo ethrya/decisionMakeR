@@ -169,6 +169,16 @@ shinyUI(navbarPage( "DecisonMakerR",
                                ),
                                column(4,
                                       tableOutput("comparisonTable"))
+                             ),
+                             fluidRow(
+                               column(2,
+                                      numericInput("xMin","x-axis minimum",
+                                                   value = "-5")
+                                      ),
+                               column(2,
+                                      numericInput("xMax","x-axis maximum",
+                                                   value = "5")
+                               )
                              )
                     )
 )

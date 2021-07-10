@@ -24,7 +24,7 @@ nSim <- 10000
 # Plot the output distribution given a 3d vector of parameters
 plot_dist <- function(params){
   tibble(x = seq(-5, 5, 0.1),
-         pdf = (dt(x - params[1], params[3]))*params[2]) %>%
+         pdf = dt((x-params[1])/params[2], params[3])) %>%
     ggplot(aes(x = x, y = pdf)) +
     geom_line(size = 1)
 }
@@ -87,8 +87,10 @@ shinyServer(function(input, output) {
     dist14 <- (rt(nSim, params14[3])+params14[1])*params14[2]
     dist15 <- (rt(nSim, params15[3])+params15[1])*params15[2]
     
-    combined <- input$w1*dist11 + input$w2*dist12 +
-      input$w3*dist13 + input$w4*dist14 +input$w5*dist15
+    wSum <- input$w1 + input$w2 + input$w3 + input$w4 + input$w5
+    
+    combined <- input$w1/wSum*dist11 + input$w2/wSum*dist12 +
+      input$w3/wSum*dist13 + input$w4/wSum*dist14 +input$w5/wSum*dist15
   })
   
   # CReate a plot associated with the Outcome 1 posterior
@@ -133,20 +135,22 @@ shinyServer(function(input, output) {
   
   
   pdf2 <- reactive({
-    params1 <- get_params(input$params21)
-    params2 <- get_params(input$params22)
-    params3 <- get_params(input$params23)
-    params4 <- get_params(input$params24)
-    params5 <- get_params(input$params25)
+    params21 <- get_params(input$params21)
+    params22 <- get_params(input$params22)
+    params23 <- get_params(input$params23)
+    params24 <- get_params(input$params24)
+    params25 <- get_params(input$params25)
     
-    dist1 <- (rt(nSim, params1[3])+params1[1])*params1[2]
-    dist2 <- (rt(nSim, params2[3])+params2[1])*params2[2]
-    dist3 <- (rt(nSim, params3[3])+params3[1])*params3[2]
-    dist4 <- (rt(nSim, params4[3])+params4[1])*params4[2]
-    dist5 <- (rt(nSim, params5[3])+params5[1])*params5[2]
+    dist21 <- (rt(nSim, params21[3])+params21[1])*params21[2]
+    dist22 <- (rt(nSim, params22[3])+params22[1])*params22[2]
+    dist23 <- (rt(nSim, params23[3])+params23[1])*params23[2]
+    dist24 <- (rt(nSim, params24[3])+params24[1])*params24[2]
+    dist25 <- (rt(nSim, params25[3])+params25[1])*params25[2]
     
-    combined <- input$w1*dist1 + input$w2*dist2 +
-      input$w3*dist3 + input$w4*dist4 +input$w5*dist5
+    wSum <- input$w1 + input$w2 + input$w3 + input$w4 + input$w5
+    
+    combined <- input$w1/wSum*dist21 + input$w2/wSum*dist22 +
+      input$w3/wSum*dist23 + input$w4/wSum*dist24 +input$w5/wSum*dist25
   })
   
   # Posterior PDF for option 2
@@ -163,7 +167,8 @@ shinyServer(function(input, output) {
                    names_to = "Option",
                    values_to = "x") %>%
       ggplot(aes(x = x, colour = Option, group = Option)) +
-      geom_density(size = 1)
+      geom_density(size = 1) +
+      scale_x_continuous(limits = c(input$xMin, input$xMax))
   })
   
   output$comparisonTable <- renderTable({
