@@ -1,3 +1,4 @@
+# Get the name of each criteria
 criteriaNameCol <- function(criteriaNo = 1, width = 2) {
   column(width,
          textInput(paste0("criteria", criteriaNo),
@@ -5,7 +6,7 @@ criteriaNameCol <- function(criteriaNo = 1, width = 2) {
   )
 }
 
-
+# Get each criteria's weight
 wtCol <- function(criteriaNo = 1, width = 2) {
   column(width,
          numericInput(paste0("w", criteriaNo),
@@ -14,6 +15,8 @@ wtCol <- function(criteriaNo = 1, width = 2) {
   )
 }
 
+# Get the parameters of each criteria, where each criteria is a t distribution,
+# with a mean, sd and df.
 paramsCol <- function(criteriaNo = 1, optionNo = 1, width = 2) {
   column(width,
          textInput(paste0("params", optionNo, criteriaNo),
@@ -22,6 +25,8 @@ paramsCol <- function(criteriaNo = 1, optionNo = 1, width = 2) {
   )
 }
 
+
+# Plot the parameter distribution
 distPlotCol <- function(criteriaNo = 1, optionNo = 1, width = 2) {
   column(width,
          plotOutput(paste0("distPlot", optionNo, criteriaNo),
