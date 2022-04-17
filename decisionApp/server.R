@@ -1,11 +1,4 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+
 
 library(shiny)
 library(ggfortify)
@@ -13,30 +6,13 @@ library(tidyverse)
 library(ggplot2)
 library(plotly)
 
-# list.files("../R", pattern = ".R", full.names = T) %>%
-#   purrr::walk(source)
+list.files("../R", pattern = ".R", full.names = T) %>%
+  purrr::walk(source)
 
 thematic::thematic_shiny()
 
 # Number of monte carlo simulations
 nSim <- 10000
-
-# Plot the output distribution given a 3d vector of parameters
-plot_dist <- function(params){
-  tibble(x = seq(-5, 5, 0.1),
-         pdf = dt((x-params[1])/params[2], params[3])) %>%
-    ggplot(aes(x = x, y = pdf)) +
-    geom_line(size = 1)
-}
-
-# Take a comma separated string of parameters and
-  # create a 3d vector of parameters
-get_params <- function(params){
-  strsplit(params, ",") %>%
-    magrittr::extract2(1) %>%
-    str_extract("[\\-\\.0-9]+") %>%
-    as.numeric()
-}
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -81,11 +57,11 @@ shinyServer(function(input, output) {
     params14 <- get_params(input$params14)
     params15 <- get_params(input$params15)
     
-    dist11 <- (rt(nSim, params11[3])+params11[1])*params11[2]
-    dist12 <- (rt(nSim, params12[3])+params12[1])*params12[2]
-    dist13 <- (rt(nSim, params13[3])+params13[1])*params13[2]
-    dist14 <- (rt(nSim, params14[3])+params14[1])*params14[2]
-    dist15 <- (rt(nSim, params15[3])+params15[1])*params15[2]
+    dist11 <- (rt(nSim, params11[3]) + params11[1]) * params11[2]
+    dist12 <- (rt(nSim, params12[3]) + params12[1]) * params12[2]
+    dist13 <- (rt(nSim, params13[3]) + params13[1]) * params13[2]
+    dist14 <- (rt(nSim, params14[3]) + params14[1]) * params14[2]
+    dist15 <- (rt(nSim, params15[3]) + params15[1]) * params15[2]
     
     wSum <- input$w1 + input$w2 + input$w3 + input$w4 + input$w5
     
@@ -141,16 +117,17 @@ shinyServer(function(input, output) {
     params24 <- get_params(input$params24)
     params25 <- get_params(input$params25)
     
-    dist21 <- (rt(nSim, params21[3])+params21[1])*params21[2]
-    dist22 <- (rt(nSim, params22[3])+params22[1])*params22[2]
-    dist23 <- (rt(nSim, params23[3])+params23[1])*params23[2]
-    dist24 <- (rt(nSim, params24[3])+params24[1])*params24[2]
-    dist25 <- (rt(nSim, params25[3])+params25[1])*params25[2]
+    dist21 <- (rt(nSim, params21[3]) + params21[1]) * params21[2]
+    dist22 <- (rt(nSim, params22[3]) + params22[1]) * params22[2]
+    dist23 <- (rt(nSim, params23[3]) + params23[1]) * params23[2]
+    dist24 <- (rt(nSim, params24[3]) + params24[1]) * params24[2]
+    dist25 <- (rt(nSim, params25[3]) + params25[1]) * params25[2]
     
     wSum <- input$w1 + input$w2 + input$w3 + input$w4 + input$w5
     
-    combined <- input$w1/wSum*dist21 + input$w2/wSum*dist22 +
-      input$w3/wSum*dist23 + input$w4/wSum*dist24 +input$w5/wSum*dist25
+    combined <- input$w1 / wSum * dist21 + input$w2 / wSum * dist22 +
+      input$w3 / wSum * dist23 + input$w4 / wSum * dist24 + 
+      input$w5 / wSum * dist25
   })
   
   # Posterior PDF for option 2
