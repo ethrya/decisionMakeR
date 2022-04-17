@@ -24,6 +24,7 @@ paramsCol <- function(criteriaNo = 1, optionNo = 1, width = 2) {
 
 distPlotCol <- function(criteriaNo = 1, optionNo = 1, width = 2) {
   column(width,
-         plotOutput(paste0("distPlot", optionNo, criteriaNo))
+         plotOutput(paste0("distPlot", optionNo, criteriaNo),
+                    height = "200px")
   )
 }
