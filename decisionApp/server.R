@@ -1,12 +1,10 @@
-
-
 library(shiny)
 library(ggfortify)
 library(tidyverse)
 library(ggplot2)
 library(plotly)
 
-list.files("../R", pattern = ".R", full.names = T) %>%
+list.files("R", pattern = ".R", full.names = T) %>%
   purrr::walk(source)
 
 thematic::thematic_shiny()

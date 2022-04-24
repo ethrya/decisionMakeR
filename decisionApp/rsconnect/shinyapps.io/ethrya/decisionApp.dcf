@@ -5,8 +5,9 @@ account: ethrya
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4348586
-bundleId: 4783406
+bundleId: 5831434
 url: https://ethrya.shinyapps.io/decisionApp/
-when: 1625308488.87185
+when: 1650801545.08109
+lastSyncTime: 1650801545.0811
 asMultiple: FALSE
 asStatic: FALSE
