@@ -1,6 +1,6 @@
 plot_dist <- function(params){
    tibble(x = seq(-5, 5, 0.1),
-          pdf = (dt(x - params[1], params[3]))*params[2]) %>%
+          pdf = (dt(x/params[2] - params[1], params[3]))) %>%
       ggplot(aes(x = x, y = pdf)) +
       geom_line(size = 1)
 }
